@@ -14,4 +14,8 @@ app.get('/',(req,res) => {
     res.send('REST API with Node JS')
 })
 
+app.get('/api/books',(req,res) => {
+    res.send(books)
+})
+
 app.listen(8080)
