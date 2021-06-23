@@ -24,4 +24,13 @@ app.get('/api/books/:id',(req,res) => {
     res.status(200).send(book)
 })
 
+app.post('/api/books/addBook', (req,res) => {
+    const book = {
+        id: books.length+1,
+        title: req.body.title
+    }
+    books.push(book)
+    res.status(201).send(book)
+})
+
 app.listen(8080)
