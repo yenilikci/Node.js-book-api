@@ -141,7 +141,35 @@ app.post('/api/books/addBook',(req,res)=>{
         }
     })
 })
-
+/** 
+*   @swagger
+*   /api/books/{id}:
+*    put:
+*        summary: used to update data to mongodb
+*        description: this api is used to fetch data from mongodb
+*        parameters:
+*           - in: path
+*             name: id
+*             required: true
+*             description: Numeric Id required
+*             schema:
+*               type: integer
+*        requestBody:
+*           required: true
+*           content: 
+*               application/json:
+*                   schema:
+*                      $ref: '#components/schemas/Book'
+*        responses:
+*           200:
+*               description: Updated succesfully
+*               content:
+*                   application/json:
+*                       schema:
+*                           type: array
+*                       items:
+*                           $ref: '#components/schemas/Book'
+*/
 //id'ye göre veri güncelle
 app.put('/api/books/:id',(req,res) => {
     let query = {id:parseInt(req.params.id)}
