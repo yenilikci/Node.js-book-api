@@ -43,7 +43,20 @@ app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerSpec))
 app.get('/',(req,res) => {
     res.send('welcome to mongodb api')
 })
-
+/** 
+*   @swagger
+*   /api/books:
+*    get:
+*        summary: to get all books from mongodb
+*        description: this api is used to fetch data from mongodb
+*        responses:
+*           200:
+*               description: this api used to fetch data from mongodb
+*               content:
+*                   application/json:
+*                       schema:
+*                           type: array                       
+*/
 //tüm verileri getir
 app.get('/api/books',(req,res) => {
     database.collection('books').find({}).toArray((err,result) => {
@@ -51,7 +64,27 @@ app.get('/api/books',(req,res) => {
         res.send(result)
     })
 })
-
+/** 
+*   @swagger
+*   /api/books/{id}:
+*    get:
+*        summary: to get all books from mongodb
+*        description: this api is used to fetch data from mongodb
+*        parameters:
+*           - in: path
+*             name: id
+*             required: true
+*             description: Numeric Id required
+*             schema:
+*               type: integer
+*        responses:
+*           200:
+*               description: this api used to fetch data from mongodb
+*               content:
+*                   application/json:
+*                       schema:
+*                           type: array
+*/
 //id'ye göre veri getir
 app.get('/api/books/:id',(req,res) => {
     database.collection('books').find({id:parseInt(req.params.id)}).toArray((err,result) => {
