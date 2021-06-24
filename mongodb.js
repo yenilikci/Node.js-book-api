@@ -59,6 +59,14 @@ app.put('/api/books/:id',(req,res) => {
     })
 })
 
+//id'ye göre kitap sil
+app.delete('/api/books/:id',(req,res) => {
+    database.collection('books').deleteOne({id:parseInt(req.params.id)}, (err,result) =>{
+        if(err) throw err
+        res.send('book is deleted')
+    })
+})
+
 app.listen(8080, () => {
     MongoClient.connect('mongodb://localhost:27017', {useNewUrlParser:true},(error,result) => {
         if(error) throw error
