@@ -43,6 +43,22 @@ app.post('/api/books/addBook',(req,res)=>{
     })
 })
 
+//id'ye göre veri güncelle
+app.put('/api/books/:id',(req,res) => {
+    let query = {id:parseInt(req.params.id)}
+    let book = {
+        id: parseInt(req.params.id),
+        title: req.body.title
+    }
+    let dataSet = {
+        $set:book
+    }
+    database.collection('books').updateOne(query,dataSet,(err,result) => {
+        if(err) throw err
+        res.send(book)
+    })
+})
+
 app.listen(8080, () => {
     MongoClient.connect('mongodb://localhost:27017', {useNewUrlParser:true},(error,result) => {
         if(error) throw error
