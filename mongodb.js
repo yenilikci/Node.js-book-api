@@ -43,6 +43,19 @@ app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerSpec))
 app.get('/',(req,res) => {
     res.send('welcome to mongodb api')
 })
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *              Book:
+ *                  type: object
+ *                  properties:
+ *                      id:
+ *                          type: integer
+ *                      title:
+ *                          type: string
+*/
 /** 
 *   @swagger
 *   /api/books:
@@ -55,7 +68,9 @@ app.get('/',(req,res) => {
 *               content:
 *                   application/json:
 *                       schema:
-*                           type: array                       
+*                           type: array     
+*                       items:
+*                           $ref: '#components/schemas/Book'                  
 */
 //tüm verileri getir
 app.get('/api/books',(req,res) => {
@@ -84,6 +99,8 @@ app.get('/api/books',(req,res) => {
 *                   application/json:
 *                       schema:
 *                           type: array
+*                       items:
+*                           $ref: '#components/schemas/Book'
 */
 //id'ye göre veri getir
 app.get('/api/books/:id',(req,res) => {
@@ -92,7 +109,22 @@ app.get('/api/books/:id',(req,res) => {
         res.send(result)
     })
 })
-
+/** 
+*   @swagger
+*   /api/books/addBook:
+*    post:
+*        summary: used to insert data to mongodb
+*        description: this api is used to fetch data from mongodb
+*        requestBody:
+*           required: true
+*           content: 
+*               application/json:
+*                   schema:
+*                      $ref: '#components/schemas/Book'
+*        responses:
+*           200:
+*               description: Added succesfully
+*/
 //veri ekle
 app.post('/api/books/addBook',(req,res)=>{
     let resp = database.collection('books').find({}).sort({id:-1}).limit(1)
