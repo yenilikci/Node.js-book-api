@@ -19,7 +19,7 @@ const options = {
         },
         servers: [
             {
-                url:'https://localhost:8080/'
+                url:'http://localhost:8080/'
             }
         ]
     },
@@ -29,6 +29,17 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options)
 app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerSpec))
 
+
+/** 
+*   @swagger
+*   /:
+*    get:
+*        summary: AA this api is used to check if get method is working or not
+*        description: this api is used to check if get method is working or not
+*        responses:
+*            200:
+*                description: To test Get method
+*/
 app.get('/',(req,res) => {
     res.send('welcome to mongodb api')
 })
