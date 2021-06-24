@@ -1,10 +1,33 @@
 const express = require('express')
 const MongoClient = require('mongodb').MongoClient
+//swagger
+const swaggerJSDoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
 
 const app = express()
 
 app.use(express.json())
 var database
+
+//swagger options
+const options = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Node JS Api Project for mongodb',
+            version: '1.0.0'
+        },
+        servers: [
+            {
+                url:'https://localhost:8080/'
+            }
+        ]
+    },
+    apis: ['./mongodb.js']
+}
+//middleware setup
+const swaggerSpec = swaggerJSDoc(options)
+app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerSpec))
 
 app.get('/',(req,res) => {
     res.send('welcome to mongodb api')
