@@ -185,7 +185,23 @@ app.put('/api/books/:id',(req,res) => {
         res.send(book)
     })
 })
-
+/** 
+*   @swagger
+*   /api/books/{id}:
+*    delete:
+*        summary: this api is use to delete record from mongodb database
+*        description: this api is used to fetch data from mongodb
+*        parameters:
+*           - in: path
+*             name: id
+*             required: true
+*             description: Numeric Id required
+*             schema:
+*               type: integer
+*        responses:
+*           200:
+*               description: data is deleted
+*/
 //id'ye göre kitap sil
 app.delete('/api/books/:id',(req,res) => {
     database.collection('books').deleteOne({id:parseInt(req.params.id)}, (err,result) =>{
